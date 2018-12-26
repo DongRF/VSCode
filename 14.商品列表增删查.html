@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="vue.js"></script>
+ </head>
+ <body>
+  <div id="app">
+      <h3>{{ mag }}</h3>
+      id：<input type="text" v-model:value="id">
+      name：<input type="text" v-model:value="name">
+      <input type="button" value="添加" @click="add">
+      <input type="text" v-model:value="keyWord">
+
+      <br><br>
+      <table width='80%' border="1">
+          <tr>
+            <td>id</td>
+            <td>name</td>
+            <td>time</td>
+            <td>操作</td>
+          </tr>
+          <tr v-for="item in search(keyWord)" :key="item.id">
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.ctime | timeFormate }}</td>
+            <td><a href="" @click.prevent="deleteq(item.id)">删除</a></td>
+          </tr>
+      </table>
+  </div>
+<script>
+Vue.filter('timeFormate',function(ctime){
+    var time = new Date(ctime);
+    var y = time.getFullYear();
+    var m = time.getMonth() + 1;
+    var d = time.getDate();
+    //return y+"-"+m+"-"+d;
+    return `${y}-${m}-${d}`;
+});
+
+var vm = new Vue({
+    el:'#app',
+    data:{
+        mag:"商品列表",
+        id:"",
+        name:"",
+        keyWord:"",
+        list:[
+            {id:'1',name:'宝马',ctime:new Date()},
+            {id:'2',name:'奔驰',ctime:new Date()}
+            ]
+    },
+    methods:{
+        add(){
+            this.list.push({id:this.id,name:this.name});
+            this.id="";
+            this.name="";
+        },
+        search(keyWord){
+            var newList = [];
+            return this.list.filter(item => {  //filter方法：循环过滤不符合条件的项目
+                if(item.name.includes(keyWord)){    //includes方法：name中是否包含keyWord
+                    return item;
+                }
+            });
+            //return newList;
+            // var newList = [];
+            // this.list.forEach(item => {
+            //     if(item.name.indexOf(keyWord) != -1){
+            //         newList.push(item);
+            //     }
+            // });
+            
+        },
+        deleteq(id){
+            // //数组的some方法：循环list数组，item是每一项，i是下标，当some的参数为true时，循环就会停止。
+            // this.list.some((item,i) => {
+            //     if(item.id == id){
+            //         this.list.splice(i, 1);   //数组的splice方法：删除从指定下标开始的1个数组元素
+            //         return true;
+            //     }
+            // });
+
+            var index = this.list.findIndex(item => {   //数组的findIndex方法：循环数组当参数为true时，返回当前索引
+                if(item.id == id) return true;
+            });
+
+            this.list.splice(index, 1);   //数组的splice方法：删除从指定下标开始的1个数组元素
+        }
+    }
+});
+</script>
+
+ </body>
+</html>
