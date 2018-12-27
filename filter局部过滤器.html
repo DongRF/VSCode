@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="vue.js"></script>
+ </head>
+ <body>
+  <div id="app">
+      <p>{{ mag | myFilter }}</p>
+  </div>
+<script>
+Vue.filter('myFilter',function(mag){
+    if( mag == '123' ){
+        return '456';
+    }
+});
+
+var vm = new Vue({
+    el:'#app',
+    data:{
+        mag:'123'
+    },
+    methods:{
+
+    }
+});
+</script>
+
+ </body>
+</html>
