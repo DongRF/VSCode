@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="vue.js"></script>
+ </head>
+ <body>
+  <div id="app">
+      <p></p>
+  </div>
+<script>
+var vm = new Vue({
+    el:'#app',
+    data:{
+        msg:'123'
+    },
+    methods:{
+        show(){
+            console.log("Show()方法执行。。。");
+        }
+    },
+    beforeCreate(){  //第一个生命周期函数，实例被创建出来之前执行该函数
+        // console.log(this.msg);  //将打印出undefined，原因是这时候data还没有初始化；
+        // this.show();  //同理methods方法也没有初始化
+    },
+    created(){  //第二个生命周期函数
+        console.log(this.msg);  //将打印出123，原因是这时候data已经初始化；
+        this.show();  //同理methods方法也已经初始化
+    }
+});
+</script>
+
+ </body>
+</html>

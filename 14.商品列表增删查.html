@@ -11,7 +11,7 @@
       id：<input type="text" v-model:value="id">
       name：<input type="text" v-model:value="name" @keyup.f2="add">
       <input type="button" value="添加" @click="add">
-      <input type="text" v-model:value="keyWord" id="search" v-focus>
+      <input type="text" v-model:value="keyWord" id="search" v-focus v-color="'pink'">
 
       <br><br>
       <table width='80%' border="1">
@@ -29,7 +29,49 @@
           </tr>
       </table>
   </div>
+
+  <div id="app2">
+      <p v-FONTWEIGHT="900" v-fontSize="30">{{ msg }}</p>
+  </div>
 <script>
+
+var vm2 = new Vue({
+    el:'#app2',
+    data:{
+        msg:'123456789'
+    },
+    directives:{
+        'fontweight':{
+            bind:function(el,binding_p){
+             el.style.fontWeight = binding_p.value;
+            }
+        },
+        'fontsize':function(el,binding_q){
+            el.style.fontSize = parseInt(binding_q.expression) + "px";
+        }
+    }
+});
+
+//函数简写
+//只适用于bind和updated
+Vue.directive('color',(el,binding)=>{
+    el.style.color = binding.value;
+})
+
+//自定义一个改变style的指令
+// Vue.directive('color',{
+//     bind(el,binding){
+//         // el.style.color = 'red';  //相当于document.getElmentById("search").style.color = 'red'
+        
+//         el.style.color = binding.value;
+//     },
+//     inserted(el){
+        
+//     },
+//     updated(el){
+
+//     }
+// });
 
 //使用directive定义全局指令  v-focus
 //其中：参数1是指令的名称，注意，定义的时候不需要加 v- 前缀，但是在调用的时候要加上 v- 前缀。
