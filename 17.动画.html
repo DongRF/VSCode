@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="vue.js"></script>
+  <!-- 2、其次，自定义样式，分别分为进入之前，进入之中，进入之后，离开之前，离开之中，离开之后 -->
+  <!-- 这里注意，使用 .v- 开头的设置的是全局的进入退出属性，如果给 transition 设置了name，就可以定义私有的进入退出属性了 -->
+  <style>
+      /*这是进入之前和离开之后的style属性*/
+    .v-enter,
+    .v-leave-to{
+        opacity: 0;  /* 不透明度为0，不显示出来 */
+        transform: translateX(150px);  /* 在水平位置向左移动150px */
+    }
+      /*这是进入之后和离开之前的style属性*/
+    .v-enter-to,
+    .v-leave{
+        opacity: 1;  /* 不透明度为1，显示出来 */
+    }
+      /*这是进入之中和离开之中的style属性*/
+    .v-enter-active,
+    .v-leave-active{
+        transition: all .8s ease;   /*all表示所有属性都变化  0.8s表示动画时间  ease表示用简单的方式变化*/
+    }
+
+    .my-enter,
+    .my-leave-to{
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    .my-enter-to,
+    .my-leave{
+        opacity: 1;
+    }
+    .my-enter-active,
+    .my-leave-active{
+        transition: all .8s ease;
+    }
+  </style>
+
+
+ </head>
+ <body>
+  <div id="app">
+      <!-- 要实现一个动画效果一共分为三步 -->
+      <!-- 1、首先，用<transition>标签将要使用动画的元素包裹起来 -->
+      <transition>
+      <!-- 3、最后，用 v-if 或 v-show 控制标签的显示和隐藏 -->
+        <h3 v-if="show">{{ mag }}</h3>
+      </transition>
+      <input type="button" value="变化h3" @click="show = !show">
+
+      <transition name="my"> <!-- 这里设置了name就可以设置私有的动画属性了 -->
+        <h6 v-if="show2">{{ mag }}</h6>
+      </transition>
+      <input type="button" value="变化h6" @click="show2 = !show2">
+  </div>
+<script>
+var vm = new Vue({
+    el:'#app',
+    data:{
+        mag:'这是一句话',
+        show:false,
+        show2:false
+    },
+    methods:{
+
+    }
+});
+</script>
+
+ </body>
+</html>
