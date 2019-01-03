@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="vue.js"></script>
+  <style>
+   .boll{
+       width: 15px;
+       height: 15px;
+       border-radius: 50%;
+       background-color: red;
+   }
+  </style>
+ </head>
+ <body>
+     
+  <div id="app">
+      <input type="button" value="移动" @click="flag = !flag">
+      <transition @before-enter="beforeEnter"
+                  @enter="enter"
+                  @after-enter="afterEnter"
+      >
+          <div class="boll" v-if='flag'></div>
+      </transition>
+      
+  </div>
+<script>
+var vm = new Vue({
+    el:'#app',
+    data:{
+        flag:false
+    },
+    methods:{
+        //注意：第一个参数是要加入动画的那个DOM标签元素，相当于document.getElementById();
+        beforeEnter(el){
+            //在动画开始入场之前执行该函数
+            el.style.transform = 'translate(0, 0)'; //设置小球位置在起始位置
+        },
+        enter(el,done){
+            el.offsetWidth; //这一句话并没有什么用处，但是不加就出不来动画效果。不知道为什么。
+            //表示动画入场刚刚结束之后的样式
+            el.style.transform = 'translate(150px, 450px)';
+            el.style.transition = 'all 0.8s ease'
+            done();  //调用这个函数实质是调用了 afterEnter(el) 函数（官方文档里有说明，必须调用该函数）
+        },
+        afterEnter(el){
+            //表示动画入场之后的样式
+            this.flag = !this.flag;
+        }
+    }
+});
+</script>
+
+ </body>
+</html>

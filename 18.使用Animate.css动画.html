@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="vue.js"></script>
+  <link rel="stylesheet" href="animate.css">
+ </head>
+ <body>
+  <div id="app">
+      <!-- 使用第三方的Animate样式来定义动画 -->
+    <input type="button" value="变化" @click="show = !show">
+    <transition 
+        enter-active-class="animated rubberBand" 
+        leave-active-class="animated rubberBand" 
+        :duration="200">  <!-- :duration 设置进入和退出的时长 -->
+        <!-- 如果想当单独设置进入和退出的时长可以使用 :duration="{ enter:200, leave:400 }" -->
+        <H2 v-if="show">{{ mag }}</H2>
+    </transition>
+  </div>
+<script>
+var vm = new Vue({
+    el:'#app',
+    data:{
+        mag:'使用第三方样式',
+        show:false
+    },
+    methods:{
+
+    }
+});
+</script>
+
+ </body>
+</html>

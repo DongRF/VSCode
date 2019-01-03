@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="vue.js"></script>
+  <style>
+      li{
+        border: 1px dotted yellow;
+        margin: 5px 0 5px 0;
+        font-size: 20px;
+        padding-left: 15px;
+      }
+      .v-enter,
+      .v-leave-to{
+        transform: translateY(30px);
+      }
+      .v-enter-active,
+      .v-leave-active{
+        transition: all 1s ease;
+      }
+      li:hover /* 鼠标悬停事件 */
+      { 
+        background-color:hotpink;
+        transition: all 0.8s ease; /* transition是css3的元素，不是vue的元素 */
+      }
+  </style>
+ </head>
+ <body>
+  <div id="app">
+      id：<input type="text" v-model="id">
+      name：<input type="text" v-model="name">
+      <input type="button" value="添加" @click="add">
+      <ul>
+        <transition-group>
+            <!-- 使用v-for循环出来的标签，不能使用 <transition> 标签包裹，而是使用 <transition-group> -->
+            <li v-for='item in list' :key='item.id' > {{ item.id }} ---- {{ item.name }} </li>
+        </transition-group>
+      </ul>
+  </div>
+<script>
+var vm = new Vue({
+    el:'#app',
+    data:{
+        id:'',
+        name:'',
+        list:[
+            { id:1,name:"张三" },
+            { id:2,name:"李四" }
+        ]
+    },
+    methods:{
+        add(){
+            this.list.push({ id:this.id ,name:this.name });
+            this.id = this.name = "";
+        }
+    }
+});
+</script>
+
+ </body>
+</html>
