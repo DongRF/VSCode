@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="vue.js"></script>
+  <!-- vue-resource依赖于vue的包，所以导包的时候要注意先后顺序 -->
+  <script src="vue-resource.js"></script>
+ </head>
+ <body>
+  <div id="app">
+      <p>{{ mag }}</p>
+      <input type="button" value="get请求" @click="getInfo()">
+      <input type="button" value="post请求" @click="postInfo()">
+  </div>
+<script>
+var vm = new Vue({
+    el:'#app',
+    data:{
+        mag:'123'
+    },
+    methods:{
+        getInfo(){
+            this.$http.get('url').then(result => {
+                //执行成功的时候的回调函数
+            },result => {
+                //执行失败的时候的回调函数
+            });
+        },
+        postInfo(){
+            this.$http.post('url',{ name: '张三' },{ emulateJSON: true }).then(result => {
+                //执行成功的时候的回调函数
+            },result => {
+                //执行失败的时候的回调函数
+            });
+        },
+        jsonpInfo(){
+            this.$http.jsonp('url').then(result => {
+                //执行成功的时候的回调函数
+            },result => {
+                //执行失败的时候的回调函数
+            });
+        }
+    }
+});
+</script>
+
+ </body>
+</html>
