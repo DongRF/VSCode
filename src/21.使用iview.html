@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>iview example</title>
+    <link rel="stylesheet" type="text/css" href="http://unpkg.com/iview/dist/styles/iview.css">
+    <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
+    <script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
+</head>
+<body>
+<div id="app">
+       
+        <i-button>Default</i-button>
+        <i-button type="primary" icon="md-contact" />Primary</i-button>
+        <i-button type="dashed">Dashed</i-button>
+        <i-button type="text">Text</i-button>
+        <br><br>
+        <i-button type="info">Info</i-button>
+        <i-button type="success">Success</i-button>
+        <i-button type="warning">Warning</i-button>
+        <i-button type="error">Error</i-button>
+        <br><br>
+
+    <i-button @click="show">Click me!</i-button>
+    <Modal v-model="visible" title="Welcome">Welcome to iView</Modal>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            visible: false
+        },
+        methods: {
+            show: function () {
+                this.visible = true;
+            }
+        }
+    })
+  </script>
+</body>
+</html>
