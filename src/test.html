@@ -1,15 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
-</head>
-<body>
-    <span style="font-size: 30px;font-weight: bolder">123</span>
-    <input type="text" width="200" style="border-color: #09ff01;border">
-</body>
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document111</title>
+  <link rel="stylesheet" href="../lib/iview.css">
+  <script src="../lib/vue.js"></script>
+  <script src="../lib/iview.min.js"></script>
+ </head>
+ <body>
+  <div id="app">
+    <template>
+            <Layout>
+                <Header style="height: 30%">Header</Header>
+                <Content  style="height: 30%">Content</Content>
+                <Footer style="height: 30%">Footer</Footer>
+            </Layout>
+    </template>
+  </div>
+<script>
+var vm = new Vue({
+    el:'#app',
+    data:{
+        mag:'123'
+    },
+    methods:{
+
+    }
+});
+</script>
+
+ </body>
 </html>

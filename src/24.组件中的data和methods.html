@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="../lib/vue.js"></script>
+ </head>
+ <body>
+  <div id="app">
+    <counter></counter>
+    <br>
+    <counter></counter>
+  </div>
+<template id="tmpl">
+  <div>
+    <input type="button" value="+1" @click="add">
+    <h3> {{ count }} </h3>
+  </div>
+</template>
+<script>
+var obj = {};
+Vue.component('counter',{
+  template: '#tmpl',
+  data:function() {  //注意，自定义组件中的data必须定义为一个方法，而且必须返回一个内置对象，否则会出错。
+    return { count: 0 }
+    //return obj  //这种写法是错误的，obj是一个全局的对象，虽然不会报错，但是会有隐含的问题。
+  },
+  methods:{
+    add(){
+      this.count += 1;
+    }
+  }
+});
+var vm = new Vue({
+    el:'#app',
+    data:{
+    },
+    methods:{
+    }
+});
+</script>
+ </body>
+</html>

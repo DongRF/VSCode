@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="../lib/vue.js"></script>
+ </head>
+ <body>
+  <div id="app">
+        <mycom1></mycom1>
+        <my-com2></my-com2>
+  </div>
+
+  <template id="mycom1">
+    <div>
+      <h3>这是使用外置的HTML代码创建的H3</h3>
+      <h4>这是使用外置的HTML代码创建的H4</h4>
+    </div>
+  </template>
+
+  <template id="myCom2">
+    <div>
+      <h3>这是使用外置的HTML代码创建的H3</h3>
+      <h4>这是使用外置的HTML代码创建的H4</h4>
+    </div>
+  </template>
+<script>
+Vue.component('mycom1',{
+    template:"#mycom1"
+});
+Vue.component('myCom2',{
+    template:"#myCom2"
+});
+
+var vm = new Vue({
+    el:'#app',
+    data:{
+    },
+    methods:{
+    }
+});
+</script>
+ </body>
+</html>
