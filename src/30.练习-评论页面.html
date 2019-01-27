@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="../lib/vue.js"></script>
+ </head>
+ <body>
+  <div id="app">
+    <com1 @func='showStorage'></com1>  
+
+    <ul>
+        <li v-for="item in list" :key="item.id">{{ item.id }}--{{ item.user }}--{{ item.context }}</li>
+    </ul>
+  </div>
+  <template id='teml'>
+    <div>
+        ID:<input type="text" v-model="id">
+        <br/>
+        用户名：<input type="text" v-model="user">
+        <br/>
+        评论：<input type="text" v-model="context">
+
+        <input type="button" value="发表" @click='save'>
+    </div>
+  </template>
+
+<script>
+var vm = new Vue({
+    el:'#app',
+    data:{
+        list:[
+            { id : 1 ,user:'张三',context:'我是张三'} ,
+            { id : 2 ,user:'李四',context:'我是李四'} 
+        ]
+    },
+    created(){
+        this.showStorage()      //在加载的时候调用showStorage方法
+    },
+    methods:{
+        showStorage(){
+            list = JSON.parse(localStorage.getItem('users'))        //将字符串序列化为一个对象
+            this.list = list        //赋值给data中的list
+        }
+    },
+    components:{
+        com1:{
+            template:"#teml",
+            data(){
+                return {
+                    id:'',
+                    user:'',
+                    context:'',
+                }
+            },
+            methods:{
+                save(){
+                    var item = { id:this.id,    user:this.user,     context:this.context }  //将输入的值组成一个对象组成一个对象
+                    var list = JSON.parse(localStorage.getItem('users') || '[]')    //获取原来localStorage中的值，如果获取的值是null，则用'[]'代替
+                    list.unshift(item)     //将新添加的对象插入到list的最前面
+                    localStorage.setItem('users',JSON.stringify(list))      //将list存入localStorage中  注：localStorage中的键和值只能存字符串
+                    this.id=this.user=this.context = ''     //清空输入框
+                    this.$emit('func')      //调用父组件的方法
+                }
+            }
+        }
+    }
+});
+</script>
+ </body>
+</html>

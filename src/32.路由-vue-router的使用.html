@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="../lib/vue.js"></script>
+  <!-- 1、首先引入vue-router.js的包 -->
+  <script src="../lib/vue-router.js"></script>
+  <style>
+   .myStyle{
+       color: red;
+       font-weight: bolder;
+   }
+
+   .v-enter,
+   .v-leave-to{
+        opacity: 0;  /* 透明度设置为0 */
+        transform: translateX(150px);
+   }
+
+   .v-enter-active,
+   .v-leave-active{
+       transition: all 0.8s ease;
+   }
+  </style>
+ </head>
+ <body>
+  <div id="app">
+      <!-- 6、定义两个超链接，注意连接前面要加# -->
+        <a href="#/login">登录</a>
+        <a href="#/register">注册</a>
+        <br/>
+        <!-- 可以使用router提供的标签<router-link>代替a标签，to代表链接地址，tag表示<router-link>渲染成的标签 默认为<a>标签 -->
+        <router-link to="/login" tag="a">登录</router-link>
+        <router-link to="/register" tag="a">注册</router-link>
+    <!-- 在vue控制的区域放一个占位符，根据路由匹配到的组件，显示对应的组件 -->
+    
+    <!-- 因为组件都是最后渲染到这里，所以想加入动画的话可以用 <transition> 将这个占位符包裹起来 -->
+    <transition mode="out-in">
+        <router-view></router-view>
+    </transition>
+
+  </div>
+<script>
+// 5、定义两个全局的组件，注意，要用对象的形式注册
+var login = {
+    template:'<h1>登录组件</h1>'
+}
+
+var register = {
+    template:'<h1>注册组件</h1>'
+}
+
+// 2、然后定义一个VueRouter的实例
+var routerObj = new VueRouter({
+// 3、有一个router的属性，是一个数组，数组里面是对象，每一个对象对应一个路由匹配规则
+    routes:[
+        // 对象中有两个属性，path是路由的匹配规则，component是该规则下要展示的组件
+        {path:'/login', component: login},
+        {path:'/register',component: register},
+        {path:'/',redirect: '/login'}  //这个地方是：如果访问根路径，将会被重定向到'/login'
+    ],
+    linkActiveClass:'myStyle'
+});
+var vm = new Vue({
+    el:'#app',
+    data:{
+    },
+    methods:{
+    },
+    // 4、将vue-router绑定到vue实例上
+    router: routerObj,
+});
+</script>
+
+ </body>
+</html>
