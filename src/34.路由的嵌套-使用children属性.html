@@ -8,30 +8,55 @@
  </head>
  <body>
   <div id="app">
-        <router-link to="/index">index</router-link>
-        <router-link to="/login">index</router-link>
-        <router-link to="/register">index</router-link>
-
-    <router-view></router-view>
+      <router-link to="/index" tag="a"> index </router-link>
+      <router-view></router-view>
   </div>
+  <template id="index">
+      <div>
+        <h1>index页面</h1>
+        <router-link to="/login" tag="a"> login </router-link>
+        <router-link to="/index/register" tag="a"> register </router-link>
+        <router-view></router-view>
+      </div>
+    </template>
+
+    <template id="login">
+      <div>
+        <h3>login页面</h3>
+      </div>
+    </template>
+    <template id="register">
+      <div>
+        <h3>register页面</h3>
+      </div>
+    </template>
 <script>
 
 var index = {
-    template:"<h1>index组件</h1>"
+  template: '#index'
 }
 var login = {
-    template: "<h3>登录组件</h3>"
+  template: '#login'
 }
 var register = {
-    template: "<h3>注册组件</h3>"
+  template: '#register'
 }
 
 var router = new VueRouter({
-    routes:[
-        { path:'/index', component: index },
-        { path:'/login', component: login },
-        { path:'/register', component: register },
-    ]
+  routes:[
+    {
+      path:'/index',
+      component: index,
+      children: [
+        {path:'/login', component: login},      //这里注意，路径前面加 '/' 和不加 '/' 的区别。
+        {path:'register', component: register}  //加了标识从根路径开始匹配。不加则加上 /index后再进行匹配
+      ]
+    },
+
+    //这种写法login和index还是平级的，只是url不同了而已，所以要想让login和register是index的子路由需要上面的办法 
+    // {path:'/index/login',component: login},
+    // {path:'/index/register',component: register}
+  ]
 });
 
 var vm = new Vue({

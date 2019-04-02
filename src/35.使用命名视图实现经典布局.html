@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="../lib/vue.js"></script>
+  <script src="../lib/vue-router.js"></script>
+
+  <style>
+   .headStyle{
+       background-color: aqua;
+       width:100%;
+       height: 20%;
+   }
+   .leftStyle{
+       background-color: blueviolet;
+       width: 20%;
+       height: 80%;
+       float: left;
+   }
+   .mainStyle{
+       background-color: burlywood;
+       width: 80%;
+       height: 80%;
+       float: left;
+   }
+  </style>
+ </head>
+ <body>
+  <div id="app" style="width: 100%; height: 1000px;">
+        <router-view></router-view>
+        <router-view name='left'></router-view>
+        <router-view name='main'></router-view>
+  </div>
+
+<script>
+
+var headBox = {
+    template: "<div class='headStyle'><p>这是头部</p></div>"
+}
+
+var leftBox = {
+    template: "<div class='leftStyle'><p>这是左侧</p></div>"
+}
+
+var mainBox = {
+    template: "<div class='mainStyle'><p>这是主体</p></div>"
+}
+
+var router = new VueRouter({
+    routes:[
+        {
+            path: '/',
+            components: {
+                'default': headBox,
+                'left': leftBox,
+                'main': mainBox
+            }
+        },
+    ]
+});
+
+var vm = new Vue({
+    el:'#app',
+    data:{
+        mag:'123'
+    },
+    methods:{
+
+    },
+    router
+});
+</script>
+
+ </body>
+</html>
